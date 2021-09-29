@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit customer</title>
+</head>
+<body>
+<h1>Edit customer</h1>
+<p>
+    <a href="/">Back To Customer List Home Page</a>
+</p>
+<th:block th:if="${message}">
+    <p th:text="${message}"></p>
+</th:block>
+<form th:action="@{/edit/customer/}" th:object="${customer}" method="post">
+    <input th:type="hidden" name="id" th:field="*{id}">
+    <table>
+        <tr>
+            <td>First name:</td>
+            <td><input type="text" th:field="*{firstName}"/></td>
+        </tr>
+        <tr>
+            <td>Last name:</td>
+            <td><input type="text" th:field="*{lastName}"/></td>
+        </tr>
+        <tr>
+            <td>Province:</td>
+<!--            Chưa hiểu đoạn này-->
+                <select name="province">
+                    <option th:each="p : ${provinces}"
+                            th:value="${p.id}"
+                            th:text="${p.name}"
+                            th:selected="(${customer.province}) and (${p.id} == *{province.id})"></option>
+                </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Update Customer"></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>HIỂN THỊ DS KHÁCH HÀNG</title>
+</head>
+<body>
+<a href="/create/customer"> Create New Customer</a>
+</br>
+<a href="/provinces"> List Province</a>
+<h1> Customer List</h1>
+</br>
+<form action="/search" method="get">
+    Search by first name:
+    <input name="search" type="text"/>
+    <input type="submit" value="Search"/>
+</form>
+<table style="color: red" border="1">
+    <tr>
+        <th>Numbers</th>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Province</th>
+        <th>Edit</th>
+        <th>Delete</th>
+        <th>Detail</th>
+    </tr>
+    <th:block th:each="customer,loop : ${listCustomer}">
+        <tr>
+            <td th:text="${loop.count}"></td>
+            <td th:text="${customer.firstName}"></td>
+            <td th:text="${customer.lastName}"></td>
+            <td th:if="${customer.province}" th:text="${customer.province.name}"></td>
+<!--            <td><a th:href="@{/edit/customer/__${customer.id}__ }">Edit</a></td>-->
+            <td><a th:href="@{/edit/customer/{id}(id=${customer.id})}">Edit</a></td>
+            <td><a th:href="@{/delete/customer/{id}(id=${customer.getId()})}">Delete</a></td>
+            <td><a th:href="@{/detail/customer/{id}(id=${customer.getId()})}">Detail</a></td>
+        </tr>
+    </th:block>
+</table>
+<div>
+    <div>
+        <a th:href="@{'/'(page=${listCustomer.number - 1})}" th:if="${listCustomer.hasPrevious()}">Previous</a>
+        <span th:text="${listCustomer.number + 1}"></span>/<span th:text="${listCustomer.totalPages}"></span>
+        <a th:href="@{'/'(page=${listCustomer.number + 1})}" th:if="${listCustomer.hasNext()}">Next</a>
+    </div>
+</div>
+</body>
+</html>

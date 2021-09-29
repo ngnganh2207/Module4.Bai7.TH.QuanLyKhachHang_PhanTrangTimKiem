@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Provinces</title>
+</head>
+<body>
+<a href="/create/province">Create NEW Province</a>
+<h1>Provinces</h1>
+<table border="1">
+    <tr>
+        <th>Numbers</th>
+        <th>Name</th>
+        <th>Edit</th>
+        <th>Delete</th>
+        <th> View Customer of Province</th>
+    </tr>
+    <th:block th:each="province,loop : ${provinces}">
+        <tr>
+            <td th:text="${loop.count}"></td>
+            <td th:text="${province.name}"></td>
+            <td><a th:href="@{/edit/province/{id}(id=${province.id})}">Edit</a></td>
+            <td><a th:href="@{/delete/province/__${province.id}__ }">Delete</a></td>
+            <td><a th:href="@{/view/province/{id}(id=${province.id})}">View Customer of Province</a></td>
+        </tr>
+    </th:block>
+</table>
+</body>
+</html>
